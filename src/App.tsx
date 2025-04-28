@@ -3,30 +3,11 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
-interface Pokemon {
-  name: string;
-  sprites: {
-    front_default: string;
-  };
-}
-
 
 const client = generateClient<Schema>();
 
 function App() {
 
-  const PokeCard: React.FC = () => {
-    const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-
-    useEffect(() => {
-      const fetchPokemon = async () => {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon/pikachu');
-        const data: Pokemon = await response.json();
-        setPokemon(data);
-      };
-      fetchPokemon();
-    }, []);
-  );
 
   const { signOut } = useAuthenticator();
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
@@ -58,14 +39,6 @@ function App() {
           {todo.content}
         </li>)}
       </ul>
-      <div>
-      {pokemon && (
-        <>
-          <h2>{pokemon.name}</h2>
-          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-        </>
-      )}
-      </div>
       <div>
         🥳 App successfully hosted. Try creating a new todo.
         <br />
