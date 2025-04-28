@@ -22,6 +22,7 @@ const PokeCard: React.FC = () => {
     };
     fetchPokemon();
   }, []);
+};
 
 const client = generateClient<Schema>();
 
