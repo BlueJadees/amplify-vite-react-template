@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import React, { useEffect, useState } from 'react';
 
 interface Pokemon {
   name: string;
@@ -22,7 +21,20 @@ const PokeCard: React.FC = () => {
     };
     fetchPokemon();
   }, []);
+
+  return (
+    <div>
+      {pokemon && (
+        <>
+          <h2>{pokemon.name}</h2>
+          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+        </>
+      )}
+    </div>
+  );
 };
+
+export default PokeCard;
 
 const client = generateClient<Schema>();
 
@@ -57,15 +69,7 @@ function App() {
           key={todo.id}>
           {todo.content}
         </li>)}
-      </ul>
-      <div>
-      {pokemon && (
-        <>
-          <h2>{pokemon.name}</h2>
-          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-        </>
-      )}
-      </div>
+      </ul>      
       <div>
         🥳 App successfully hosted. Try creating a new todo.
         <br />
